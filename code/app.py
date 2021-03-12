@@ -376,7 +376,9 @@ def get_autocorrelation_graph(stock_abbrev):
     during_corr_vals = acf(during_close)
     after_corr_vals = acf(after_close)
     during_corr_fig = go.Figure(data=[go.Bar(x=list(range(len(during_corr_vals))), y=during_corr_vals, width=0.1, marker_color='crimson')])
+    during_corr_fig.update_layout(title="Autocorrelation during Policy", title_x=0.5, xaxis_title="Lag", yaxis_title="ACF")
     after_corr_fig = go.Figure(data=[go.Bar(x=list(range(len(after_corr_vals))), y=after_corr_vals, width=0.1, marker_color='crimson')])
+    after_corr_fig.update_layout(title="Autocorrelation after Policy", title_x=0.5, xaxis_title="Lag", yaxis_title="ACF")
     return during_corr_fig, after_corr_fig
  
  # Function that gets stock candle graph information
@@ -807,7 +809,6 @@ def update_figure(stock, indicator):
     df_stock = df_stock.merge(df_ind, on='Date')
     ccf_vals = ccf(df_stock['Close'], df_stock['Value'])
     fig = go.Figure(data=[go.Bar(x=list(range(len(ccf_vals))), y=ccf_vals, width=0.1, marker_color='crimson')])
-    #fig = px.scatter(x=range(len(ccf_vals)), y=ccf_vals)
     fig.update_layout(title="Cross-correlation of Stock Price and Indicator",
                      margin=dict(l=10,r=20,t=60,b=60), title_x=0.5, xaxis_title="Lag", yaxis_title="CCF")
     return fig
